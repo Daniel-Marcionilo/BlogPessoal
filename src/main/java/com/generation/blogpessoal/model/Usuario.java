@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name="tb_usuarios")
 public class Usuario {
@@ -24,8 +26,9 @@ public class Usuario {
 	
 	private String nome;
 	
-	@NotNull
-	@Email(message = "O usuário deve ser um email valido ex:maria@email.com")
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "Campo obrigatório!")
+	@Email(message = "Digite um email válido!")
 	private String usuario;
 	
 	@NotNull
@@ -36,7 +39,26 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+	
+	/*CONSTRUTORES ADICIONADOS PARA REALIZARMOS OS TESTES
+	 * ATRAVÉS DA BIBLIOTECA JUNIT Versão 5*/
+	
+	// Metodos construtores para testes
+	//importante seguir a mesma ordem das declarações dos atributos de usuario acima 
+	//construtor cheio
+	//construtor para pegar/passar todos atributos
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	
+	//construtor vazio p/ acessarmos qualquer atributo/função de forma individual
+	public Usuario() {}
 
+	
 	public Long getId() {
 		return id;
 	}
