@@ -13,11 +13,10 @@ import com.generation.blogpessoal.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
+	
 	//Injetando o repository
 	@Autowired
 	private UsuarioRepository userRepository;
-	
-	
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
